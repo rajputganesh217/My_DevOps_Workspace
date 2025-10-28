@@ -1,7 +1,7 @@
 ###########################################################################################
 #     Script Name   :  New_Users_Report.sh                                                 #
-#     Version       :  1.1                                                                 #
-#     Date          :  22 Oct 2025                                                         #
+#     Version       :  3.0                                                                 #
+#     Date          :  28 Oct 2025                                                         #
 #     Credit        :  Team CloudEthix                                                     #
 #     Purpose       :  Check for new user directories created in the last 24 hours under   #
 #                      a specified base directory (default: /home).                        #
