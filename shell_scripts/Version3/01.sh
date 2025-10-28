@@ -4,8 +4,8 @@
 
 ############################################################################
 #     Script Name   :  list_directory_files.sh                             #               
-#     Version       :  2.0                                                 #                 
-#     Date          :  17 Oct 2025                                         #               
+#     Version       :  3.0                                                 #                 
+#     Date          :  28 Oct 2025                                         #               
 #     Credit        :  Team CloudEthix                                     #             
 #     Purpose       :  A shell script program file to list given directory # 
 #                     files and store result in directory_content.txt fie. #
