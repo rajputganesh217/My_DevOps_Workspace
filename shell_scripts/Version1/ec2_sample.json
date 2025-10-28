@@ -1,0 +1,36 @@
+{
+  "Reservations": [
+    {
+      "Instances": [
+        {
+          "InstanceId": "i-0a1b2c3d4e5f6g7h8",
+          "PublicIpAddress": "13.233.44.101",
+          "PrivateIpAddress": "172.31.10.11"
+        },
+        {
+          "InstanceId": "i-1a2b3c4d5e6f7g8h9",
+          "PublicIpAddress": "3.108.99.52",
+          "PrivateIpAddress": "172.31.10.12"
+        },
+        {
+          "InstanceId": "i-2a3b4c5d6e7f8g9h0",
+          "PrivateIpAddress": "172.31.10.13"
+        },
+        {
+          "InstanceId": "i-3a4b5c6d7e8f9g0h1",
+          "PublicIpAddress": "18.216.120.33",
+          "PrivateIpAddress": "172.31.10.14"
+        },
+        {
+          "InstanceId": "i-4a5b6c7d8e9f0g1h2",
+          "PrivateIpAddress": "172.31.10.15"
+        },
+        {
+          "InstanceId": "i-5a6b7c8d9e0f1g2h3",
+          "PublicIpAddress": "15.207.233.90",
+          "PrivateIpAddress": "172.31.10.16"
+        }
+      ]
+    }
+  ]
+}

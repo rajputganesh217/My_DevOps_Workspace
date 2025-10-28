@@ -1,0 +1,8 @@
+#!/bin/bash
+
+read -p " enter the file you want to moniter :- "FILE 
+echo "Waiting for change  modifications from $FILE..."
+inotifywait -m -e modify "$FILE" --format '%T %e' --timefmt '%H:%M:%S' |
+while read time event; do
+    echo "[$time] File modified! Event: $event"
+done
