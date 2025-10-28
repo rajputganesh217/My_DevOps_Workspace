@@ -1,7 +1,7 @@
 ###################################################################################################
 #     Script Name   :  Rename_Files.sh                                                            # 
-#     Version       :  1.1                                                                        #
-#     Date          :  22 Oct 2025                                                                #
+#     Version       :  3.0                                                                        #
+#     Date          :  28 Oct 2025                                                                #
 #     Credit        :  Team CloudEthix                                                            #
 #     Purpose       :  Rename all files in a directory with a new base name and incremental number #
 #                      while preserving extensions.                                               #
