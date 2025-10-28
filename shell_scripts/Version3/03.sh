@@ -2,7 +2,7 @@
 ############################################################################
 #     Script Name   :  check_service_status.sh                             #               
 #     Version       :  3.0                                                 #                 
-#     Date          :  26 Oct 2025                                         #               
+#     Date          :  28 Oct 2025                                         #               
 #     Credit        :  Team CloudEthix                                     #             
 #     Purpose       :  Checks status of a service and restarts if stopped. #
 ############################################################################
