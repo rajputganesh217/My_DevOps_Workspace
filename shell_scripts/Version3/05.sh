@@ -1,8 +1,8 @@
 
 ###############################################################################
 #     Script Name   :  update_software.sh                                     #               
-#     Version       :  2.0                                                    #                 
-#     Date          :  17 Oct 2025                                            #               
+#     Version       :  3.0                                                    #                 
+#     Date          :  28 Oct 2025                                            #               
 #     Credit        :  Team CloudEthix                                        #             
 #     Purpose       :  A shell script program to update the software like     #
 #                      Nginx Apache .                                         #
