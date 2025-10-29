@@ -3,8 +3,8 @@
 
 #####################################################################
 # Script Name : 04_REMOTE_DATA_SYNC.sh
-# Version     : 2.0
-# Date        : 22        Oct 2025
+# Version     : 3.0
+# Date        : 28 Oct 2025
 # Credit      : Team CloudEthiX
 # Purpose     : Script to copy data to remote seerver.
 ####################################################################
