@@ -1,8 +1,8 @@
 #!/bin/bash
 ###############################################################################
 #     Script Name   :  del_files_by_pattern.sh                                
-#     Version       :  2.2                                                   
-#     Date          :  26 Oct 2025                                           
+#     Version       :  3.0                                                   
+#     Date          :  28 Oct 2025                                           
 #     Credit        :  Team CloudEthix                                       
 #     Purpose       :  Deletes files matching a specific pattern.             
 ###############################################################################
