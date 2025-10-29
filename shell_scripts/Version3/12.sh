@@ -15,7 +15,6 @@ sync_backup() {
     local remote_host=$4
     local remote_dir=$5
 
-    # Check for valid input
     if [[ $# -ne 5 ]]; then
         echo "Usage: $0 local_dir remote_port remote_user remote_host_ip remote_dir"
         return 1
