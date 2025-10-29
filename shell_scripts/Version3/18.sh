@@ -1,7 +1,7 @@
 ###########################################################################################
 #     Script Name   :  Monitor_File.sh                                                    #
-#     Version       :  2.0                                                                #
-#     Date          :  22 Oct 2025                                                        #
+#     Version       :  3.0                                                                #
+#     Date          :  28 Oct 2025                                                        #
 #     Credit        :  Team CloudEthix                                                    #
 #     Purpose       :  Shell script to monitor a specified file for modifications.        #
 #                      Supports real-time monitoring using inotifywait or periodic check. #
