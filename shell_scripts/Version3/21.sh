@@ -1,7 +1,7 @@
 ##############################################################################################
 #     Script Name   :  User_Disk_Usage.sh                                                    #
-#     Version       :  2.0                                                                   #
-#     Date          :  26 Oct 2025                                                           #
+#     Version       :  3.0                                                                   #
+#     Date          :  28 Oct 2025                                                           #
 #     Credit        :  Team CloudEthix                                                       #
 #     Purpose       :  Shows total disk space used by a specific user in human-readable form.#
 ##############################################################################################
