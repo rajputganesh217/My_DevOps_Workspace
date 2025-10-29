@@ -1,7 +1,7 @@
 ##############################################################################################
 #     Script Name   :  Sort_Files.sh                                                         #
-#     Version       :  1.0                                                                   #
-#     Date          :  22 Oct 2025                                                           #
+#     Version       :  3.0                                                                   #
+#     Date          :  28 Oct 2025                                                           #
 #     Credit        :  Team CloudEthix                                                       #
 #     Purpose       :  Shell script to sort files in a specified directory into folders      #
 #                    based on their file types (Images, Documents, Audio, Others).           #
