@@ -1,8 +1,8 @@
 #!/bin/bash
 ###############################################################################
 #     Script Name   :  create_usr_fr_csv.sh                                  
-#     Version       :  2.1                                                   
-#     Date          :  26 Oct 2025                                           
+#     Version       :  3.0                                                   
+#     Date          :  28 Oct 2025                                           
 #     Credit        :  Team CloudEthix                                       
 #     Purpose       :  Creates users from names listed in a CSV file.        
 ###############################################################################
