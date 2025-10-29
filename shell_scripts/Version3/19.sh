@@ -1,7 +1,7 @@
 ###########################################################################################
 #     Script Name   :  Create_DB_User.sh                                                   #
-#     Version       :  1.0                                                                 #
-#     Date          :  22 Oct 2025                                                         #
+#     Version       :  3.0                                                                 #
+#     Date          :  28 Oct 2025                                                         #
 #     Credit        :  Team CloudEthix                                                     #
 #     Purpose       :  Shell script to create a MySQL database and a user with full        #
 #                    privileges on that database.                                          #
@@ -12,13 +12,6 @@
 #     Example       :  ./Create_DB_User.sh root123 mydb myuser mypass                      #
 #                     # Creates database 'mydb' and user 'myuser' with password 'mypass'   #
 ###########################################################################################
-
-
-
-
-
-
-
 
 #!/bin/bash
 
