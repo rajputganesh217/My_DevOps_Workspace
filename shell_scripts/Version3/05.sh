@@ -1,8 +1,8 @@
 #!/bin/bash
 ###############################################################################
 #     Script Name   :  update_software.sh                                    
-#     Version       :  3.3                                                   
-#     Date          :  26 Oct 2025                                           
+#     Version       :  3.0                                                   
+#     Date          :  28 Oct 2025                                           
 #     Credit        :  Team CloudEthix                                       
 #     Purpose       :  Updates a given service package (like Nginx, Apache). 
 ###############################################################################
