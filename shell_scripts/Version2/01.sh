@@ -12,18 +12,27 @@
 ###########################################################################
 
 
-read -p "ENTER THE DIRECTORY  NAME WITH PATH YOU WANT TO LIST :- " DIR
+DIR=$1  
 
-if [[ ! -d "$DIR" ]]; then
-    echo "NOT A VALID DIRECTORY PLEASE CHECK NAME AND PATH YOU GIVEN ."
-else
-    {
-        echo "------------------------- $(date) -------------------------"
-        echo "Directory: $DIR"
-        echo "------------------------------------------------------------"
-        ls "$DIR"
-        echo ""
-    } >> directory_content.txt
-    echo " list of files added to  directory_content.txt"
+
+if [[ -z "$DIR" ]]; then
+    echo "Usage: $0 <directory_path>"
+    exit 1
 fi
 
+
+if [[ ! -d "$DIR" ]]; then
+    echo "Error: '$DIR' is not a valid directory."
+    exit 1
+fi
+
+
+{
+    echo "------------------------- $(date) -------------------------"
+    echo "Directory: $DIR"
+    echo "------------------------------------------------------------"
+    ls "$DIR"
+    echo ""
+} >> directory_content.txt
+
+echo "List of files added to directory_content.txt"
