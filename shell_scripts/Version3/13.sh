@@ -1,7 +1,7 @@
 ###################################################################################
 #     Script Name   :  create_vhost.sh                                            #
-#     Version       :  2.0                                                        #
-#     Date          :  22 Oct 2025                                                #
+#     Version       :  3.0                                                        #
+#     Date          :  28 Oct 2025                                                #
 #     Credit        :  Team CloudEthix                                            #
 #     Purpose       :  Shell script to create an Apache virtual host for a domain #
 #                        and reload Apache safely.                               #
@@ -42,5 +42,5 @@ EOF
     fi
 }
 
-# ---- Call the function ----
+
 create_vhost "$@"
