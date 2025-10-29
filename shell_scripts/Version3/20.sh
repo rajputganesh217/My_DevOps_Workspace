@@ -1,7 +1,7 @@
 ###########################################################################################
 #     Script Name   :  Weather_Check.sh                                                   #
-#     Version       :  1.0                                                                #
-#     Date          :  22 Oct 2025                                                        #
+#     Version       :  3.0                                                                #
+#     Date          :  28 Oct 2025                                                        #
 #     Credit        :  Team CloudEthix                                                    #
 #     Purpose       :  Shell script to fetch the current weather summary for a specified  #
 #                    city using the wttr.in service.                                      #
