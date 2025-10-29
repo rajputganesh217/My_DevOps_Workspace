@@ -1,7 +1,7 @@
 ###########################################################################################
 #     Script Name   :  Daily_Log_Email.sh                                                #
-#     Version       :  2.0                                                               #
-#     Date          :  22 Oct 2025                                                       #
+#     Version       :  3.0                                                               #
+#     Date          :  28 Oct 2025                                                       #
 #     Credit        :  Team CloudEthix                                                   #
 #     Purpose       :  Send the last 15 lines of /var/log/messages as a daily system     #
 #                      log summary to a specified email address.                         #
