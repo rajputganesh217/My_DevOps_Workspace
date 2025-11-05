@@ -1,0 +1,385 @@
+
+
+```
+=================================
+Docker Tasks - Documentation
+=================================
+
+
+Task 1: Docker Installation
+---
+Objective: Verify that Docker is correctly installed and the service is running.
+
+[root@localhost ~]# docker --version
+Docker version 28.5.1, build e180ab8
+
+[root@localhost ~]# docker info
+Client: Docker Engine - Community
+ Version:    28.5.1
+Server:
+ Server Version: 28.5.1
+ Storage Driver: overlay2
+ Operating System: CentOS Stream 9
+ OSType: linux
+ Architecture: x86_64
+ CPUs: 2
+ Total Memory: 1.635GiB
+ Containers: 0
+  Running: 0
+  Paused: 0
+  Stopped: 0
+ Images: 0
+
+
+---
+Task 2: Working with Docker Images
+---
+Objective: Search for, download, and list the official Ubuntu image.
+
+[root@localhost ~]# docker search ubuntu
+NAME      DESCRIPTION                                   STARS     OFFICIAL
+ubuntu    Ubuntu is a Debian-based Linux operating sys… 17718     [OK]
+... (other results truncated) ...
+
+[root@localhost ~]# docker pull ubuntu
+Using default tag: latest
+... (pull complete) ...
+Status: Downloaded newer image for ubuntu:latest
+docker.io/library/ubuntu:latest
+
+[root@localhost ~]# docker images
+REPOSITORY   TAG       IMAGE ID         CREATED       SIZE
+ubuntu       latest    97bed23a3497     4 weeks ago   78.1MB
+
+
+---
+Task 3: Creating a Docker Container
+---
+Objective: Run a command inside a new Ubuntu container.
+
+[root@localhost ~]# docker container run -it ubuntu
+root@0289c7128ce2:/# echo "Hello, Docker!"
+Hello, Docker!
+root@0289c7128ce2:/# exit
+exit
+
+
+---
+Task 4: Inspect Container (Created State)
+---
+Objective: Verify the container's status after it has been created/run.
+
+(Note: After running interactively, the container stops. `docker ps -a` shows its "Exited" status, which confirms it was created and ran.)
+
+[root@localhost ~]# docker ps -a
+CONTAINER ID   IMAGE     COMMAND       CREATED          STATUS                     PORTS     NAMES
+0289c7128ce2   ubuntu    "/bin/bash"   41 seconds ago   Exited (0) 9 seconds ago             sleepy_shamir
+
+
+---
+Task 5: Run Container (Running State)
+---
+Objective: Start the container and confirm it is in the "running" state.
+
+[root@localhost ~]# docker container start 0289c7128ce2
+0289c7128ce2
+
+[root@localhost ~]# docker ps
+CONTAINER ID   IMAGE     COMMAND       CREATED              STATUS         PORTS     NAMES
+0289c7128ce2   ubuntu    "/bin/bash"   About a minute ago   Up 4 seconds             sleepy_shamir
+
+
+---
+Task 6: Launch and Remove HTTP Container
+---
+Objective: Launch an httpd server, verify it, then remove the container and the image.
+
+[root@localhost ~]# docker container run -itd --name httpd_01 httpd
+... (pull complete) ...
+Status: Downloaded newer image for httpd:latest
+a2191b9ec1b8e93dbec6765eadf29095150357e0c641d4aac2b07badab6ffaf3
+
+[root@localhost ~]# docker ps
+CONTAINER ID   IMAGE     COMMAND              CREATED              STATUS              PORTS     NAMES
+a2191b9ec1b8   httpd     "httpd-foreground"   About a minute ago   Up About a minute   80/tcp    httpd_01
+
+[root@localhost ~]# docker container stop a2191b9e
+a2191b9e
+
+[root@localhost ~]# docker rm a2191b9e
+a2191b9e
+
+[root@localhost ~]# docker image rm httpd:latest
+Untagged: httpd:latest
+Untagged: httpd@sha256:ecfd5ca1bfe1fc5e44a5836c5188bde7f397b50c7a5bb603a017543e29948a01
+Deleted: sha256:6a4fe18d08d26a61b32d6aa5d17b2417c4f4de63e8460abf4cd824b911b9de88
+... (layers deleted) ...
+
+[root@localhost ~]# docker images
+REPOSITORY   TAG       IMAGE ID   CREATED   SIZE
+(No images listed)
+
+
+---
+Task 7: List Short Container IDs
+---
+Objective: Display only the short, unique IDs of running containers.
+
+(Note: This example is from after we re-launched the httpd container for testing.)
+
+[root@localhost ~]# docker ps
+CONTAINER ID   IMAGE     COMMAND              CREATED          STATUS          PORTS     NAMES
+b358d1c19402   httpd     "httpd-foreground"   35 seconds ago   Up 34 seconds   80/tcp    httpd_01
+
+[root@localhost ~]# docker ps -q
+b358d1c19402
+
+```
+
+
+
+Here is the documentation for tasks 8, 9, 10, 12, and 13.
+
+---
+Task 8: Clone & Build Custom Image
+---
+Objective: Clone a Git repository and use its Dockerfile to build a new, tagged image.
+
+[root@localhost Docker_tasks]# git clone https://github.com/lancachenet/ubuntu-nginx.git
+Cloning into 'ubuntu-nginx'...
+... (clone complete) ...
+Resolving deltas: 100% (30/30), done.
+
+[root@localhost Docker_tasks]# cd ubuntu-nginx/
+[root@localhost ubuntu-nginx]# ls
+Dockerfile  goss_wait.yaml  goss.yaml  overlay  README.md  run-tests.sh
+
+[root@localhost ubuntu-nginx]# docker build -t cloudethix_webserver .
+[+] Building 44.7s (9/9) FINISHED
+ => [internal] load build definition from Dockerfile
+ => ...
+ => [1/4] FROM docker.io/lancachenet/ubuntu:latest@sha256:4c1538
+ => ...
+ => [2/4] COPY overlay/ /
+ => [3/4] RUN apt-get update &&     apt-get install -y nginx-ful
+ => [4/4] RUN     chmod 777 /opt/nginx/startnginx.sh &&     rm /e
+ => exporting to image
+ => => naming to docker.io/library/cloudethix_webserver
+
+[root@localhost ubuntu-nginx]# docker images
+REPOSITORY               TAG       IMAGE ID         CREATED          SIZE
+cloudethix_webserver   latest    cd358f0262ce     16 seconds ago   195MB
+httpd                    latest    6a4fe18d08d2     29 hours ago     117MB
+
+
+---
+Task 9: Run & Test the Webpage
+---
+Objective: Run the custom-built image as a container and verify it's serving web content.
+
+[root@localhost ubuntu-nginx]# docker container run -it --rm -d -p 8182:80 --name my_demo_webserver cloudethix_webserver
+e8207df2c307c8ff15d791adb1ca61d74eb4e276e642fc02fc0ce2d1a7bcb040
+
+[root@localhost ubuntu-nginx]# docker ps
+CONTAINER ID   IMAGE                  COMMAND                  CREATED         STATUS         PORTS                                     NAMES
+e8207df2c307   cloudethix_webserver   "/bin/bash -e /init/…"   6 seconds ago   Up 6 seconds   0.0.0.0:8182->80/tcp, [::]:8182->80/tcp   my_demo_webserver
+b358d1c19402   httpd                  "httpd-foreground"       12 minutes ago  Up 12 minutes  80/tcp                                    httpd_01
+
+[root@localhost ubuntu-nginx]# curl http://localhost:8182
+Welcome to the lancachenet/ubuntu-nginx docker container
+
+
+---
+Task 10: Container Detach & Reattach
+---
+Objective: Run an interactive container, detach from it, and then reattach to the same session.
+
+[root@localhost ubuntu-nginx]# docker container run -it ubuntu
+root@ae0a8fcf82e7:/# 
+(User detaches with Ctrl+P, Ctrl+Q)
+
+[root@localhost ubuntu-nginx]# docker ps
+CONTAINER ID   IMAGE                  COMMAND                  CREATED          STATUS          PORTS                                     NAMES
+ae0a8fcf82e7   ubuntu                 "/bin/bash"              10 seconds ago   Up 10 seconds                                             keen_lichterman
+... (other containers) ...
+
+[root@localhost ubuntu-nginx]# docker container attach ae0a8fc
+root@ae0a8fcf82e7:/# 
+root@ae0a8fcf82e7:/# exit
+exit
+
+[root@localhost ubuntu-nginx]# docker container inspect e8207df2c307
+...
+            "IPAddress": "172.17.0.3",
+...
+
+
+---
+Task 12: Inspect Host Configuration
+---
+Objective: Use `docker exec` to inspect configuration files inside a running container.
+
+[root@localhost ubuntu-nginx]# docker container exec e8207df2c307 hostname
+e8207df2c307
+
+[root@localhost ubuntu-nginx]# docker container exec e8207df2c307 cat /etc/hosts
+127.0.0.1   localhost
+::1     localhost ip6-localhost ip6-loopback
+fe00::  ip6-localnet
+ff00::  ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+172.17.0.3    e8207df2c307
+
+
+---
+Task 13: Monitor Container Stats
+---
+Objective: Monitor the real-time resource usage and running processes of a container.
+
+[root@localhost ubuntu-nginx]# docker container inspect e8207df2c307
+(Returns large JSON output with container details)
+
+[root@localhost ubuntu-nginx]# docker container top e8207df2c307
+UID      PID       PPID      C   STIME     TTY     TIME         CMD
+root     27371     27346     0   15:00     pts/0   00:00:00     /usr/bin/python3 /usr/bin/supervisord -n -c /etc/supervisor/supervisord.conf -e WARN
+root     27436     27371     0   15:00     pts/0   00:00:00     /bin/bash /opt/nginx/startnginx.sh
+root     27437     27436     0   15:00     pts/0   00:00:00     nginx: master process /usr/sbin/nginx -g daemon off;
+33       27438     27437     0   15:00     pts/0   00:00:00     nginx: worker process
+33       27439     27437     0   15:00     pts/0   00:00:00     nginx: worker process
+
+```
+
+
+
+Here is the documentation for tasks 14, 15, 16, 17, and 18, formatted as a plain text file and based on your session log.
+
+
+Task 14: Nginx Containers Log Review
+---
+Objective: Start two Nginx containers and review their logs.
+
+[root@localhost ~]# docker container run -it --rm -d -p 8080:80 --name nginx_server1 nginx
+c857167489f0f5fac34b576d4e93f564921a654e51d32ae2f8ecda52819b51ec
+
+[root@localhost ~]# docker container run -it --rm -d -p 9090:80 --name nginx_server2 nginx
+31aa9b56c3c60cdb3fb6d6476235d57ac3e35522ef8ddf10e8952b118372cfa2
+
+[root@localhost ~]# docker ps
+CONTAINER ID   IMAGE     COMMAND                  CREATED         STATUS         PORTS                                     NAMES
+31aa9b56c3c6   nginx     "/docker-entrypoint.…"   8 minutes ago   Up 8 minutes   0.0.0.0:9090->80/tcp, [::]:9090->80/tcp   nginx_server2
+c857167489f0   nginx     "/docker-entrypoint.…"   8 minutes ago   Up 8 minutes   0.0.0.0:8080->80/tcp, [::]:8080->80/tcp   nginx_server1
+...
+
+[root@localhost ~]# docker container logs c857167489f0
+/docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration
+...
+10-listen-on-ipv6-by-default.sh: info: Enabled listen on IPv6 in /etc/nginx/conf.d/default.conf
+...
+/docker-entrypoint.sh: Configuration complete; ready for start up
+2025/11/05 09:50:46 [notice] 1#1: nginx/1.29.3
+...
+2025/11/05 09:50:46 [notice] 1#1: start worker process 30
+2025/11/05 09:50:46 [notice] 1#1: start worker process 31
+
+
+---
+Task 15: System Events & Filters
+---
+Objective: Examine Docker system events using time and multi-filter constraints.
+
+[root@localhost ~]# docker events --since "2025-11-05T00:00:00" --until "2025-11-05T23:59:59"
+2025-11-05T14:33:47.311138979+05:30 image pull ubuntu:latest (name=ubuntu, ...)
+2025-11-05T14:39:12.421598853+05:30 container create 0289c7128ce2... (image=ubuntu, ...)
+... (many events truncated) ...
+2025-11-05T15:21:16.231462680+05:30 container start 31aa9b56c3c6... (image=nginx, ...)
+
+[root@localhost ~]# docker events --filter "container=nginx_server1" --filter "event=start"
+2025-11-05T15:42:14.512511303+05:30 container start c857167489f0... (image=nginx, name=nginx_server1)
+
+
+---
+Task 16: Custom Hostname & Logs
+---
+Objective: Run a container with a custom name and hostname, then check its logs.
+
+[root@localhost ~]# docker container run -it -p 7070:80 --name ubuntu_cloudethix --hostname cloudethix.com ubuntu
+
+root@cloudethix:/# hostname
+cloudethix.com
+root@cloudethix:/# exit
+exit
+
+[root@localhost ~]# docker logs ubuntu_cloudethix
+root@cloudethix:/# hostname
+cloudethix.com
+
+[root@localhost ~]# docker ps -a
+CONTAINER ID   IMAGE     COMMAND       CREATED         STATUS                     PORTS     NAMES
+77298a9954bf   ubuntu    "/bin/bash"   2 minutes ago   Exited (0) 2 seconds ago             ubuntu_cloudethix
+...
+
+(Note: The container was stopped, `docker stop 77298a9954bf`, and then removed by `docker system prune`.)
+
+
+---
+Task 17: Container Management Operations
+---
+Objective: Perform a series of container lifecycle operations (rename, pause, stop, start, kill, etc.).
+
+[root@localhost ~]# docker run -d --name ubuntu143 -p 8989:80 ubuntu
+cec0acac7f15...
+
+[root@localhost ~]# docker container rename ubuntu143 new_ubuntu
+
+[root@localhost ~]# docker ps -a
+CONTAINER ID   IMAGE     COMMAND       CREATED         STATUS                     PORTS     NAMES
+cec0acac7f15   ubuntu    "/bin/bash"   2 minutes ago   Exited (0) ...                       new_ubuntu
+
+[root@localhost ~]# docker run -dit ubuntu
+516cca4946a1... (Container created with name "busy_shamir")
+
+[root@localhost ~]# docker run -dit --name Ubuntu02 ubuntu
+2d867d7b58ace...
+
+[root@localhost ~]# docker exec -it busy_shamir hostname
+516cca4946a1
+
+[root@localhost ~]# docker exec -it Ubuntu02 hostname
+2d867d7b58ac
+
+[root@localhost ~]# docker pause busy_shamir
+busy_shamir
+
+[root@localhost ~]# docker unpause busy_shamir
+busy_shamir
+
+[root@localhost ~]# docker stop Ubuntu02
+Ubuntu02
+
+[root@localhost ~]# docker start Ubuntu02
+Ubuntu02
+
+[root@localhost ~]# docker restart Ubuntu02
+Ubuntu02
+
+[root@localhost ~]# docker kill busy_shamir Ubuntu02
+busy_shamir
+Ubuntu02
+
+[root@localhost ~]# docker ps -a
+CONTAINER ID   IMAGE     COMMAND       CREATED         STATUS                      PORTS     NAMES
+2d867d7b58ac   ubuntu    "/bin/bash"   3 minutes ago   Exited (137) 8 seconds ago            Ubuntu02
+516cca4946a1   ubuntu    "/bin/bash"   3 minutes ago   Exited (137) 8 seconds ago            busy_shamir
+...
+
+(Note: All stopped containers were later removed by `docker system prune`.)
+
+
+---
+Task 18: DockerHub Repository Setup
+---
+Objective: Create a DockerHub account and set up a repository.
+
+(This task involves steps on the Docker Hub website, such as creating an account and a new repository. These actions were not documented in the provided shell log.)
+```
