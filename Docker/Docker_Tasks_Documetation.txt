@@ -14,6 +14,15 @@ Here is the full documentation for all Docker tasks, complete with the commands 
 
 **Objective:** Verify that Docker is correctly installed and the service is running.
 
+[root@host01 localhost]# yum remove docker docker-client docker-client-latest docker-common docker-latest docker-latest-logrotate docker-logrotate docker-engine
+[root@host01 localhost]# yum install -y yum-utils device-mapper-persistent-data lvm2
+[root@host01 localhost]# yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+[root@host01 localhost]# yum list docker-ce --showduplicates | sort -r
+[root@host01 localhost]# yum update -y
+[root@host01 localhost]# yum install -y docker-ce docker-ce-cli containerd.io
+[root@host01 localhost]# systemctl start docker
+[root@host01 localhost]# systemctl enable docker
+
 [root@localhost ~]# docker --version
 Docker version 28.5.1, build e180ab8
 
@@ -321,5 +330,15 @@ CONTAINER ID   IMAGE     COMMAND       CREATED         STATUS                   
 2d867d7b58ac   ubuntu    "/bin/bash"   3 minutes ago   Exited (137) 8 seconds ago            Ubuntu02
 516cca4946a1   ubuntu    "/bin/bash"   3 minutes ago   Exited (137) 8 seconds ago            busy_shamir
 
----
+---============================================================================================================
+18. DockerHub Repository Setup
+
+
+[root@host01 localhost]# docker login
+Username: rajput217
+Password: 
+Login Succeeded
+[root@host01 localhost]# docker tag ubuntu-nginx:v1 rajput217/ubuntu-nginx-rajput217:v1
+[root@host01 localhost]# docker push rajput217/ubuntu-nginx-rajput217:v1
+
 
